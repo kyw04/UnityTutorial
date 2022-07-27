@@ -23,7 +23,7 @@ public class SpawnSystem : MonoBehaviour
         Instantiate(IceObj, this.transform.position, Quaternion.Euler(0f, 180f, 0));
     }
 
-    IEnumerator CreateIceSystem()
+    public IEnumerator CreateIceSystem()
     {
         do
         {

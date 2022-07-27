@@ -21,6 +21,7 @@ public class Penguin : MonoBehaviour
     private void OnDisable()
     {
         _spawnSystem.isPenguinDie = true;
+        StopCoroutine(_spawnSystem.CreateIceSystem());
     }
 
     private void Update()
