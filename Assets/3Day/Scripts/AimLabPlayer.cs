@@ -12,6 +12,9 @@ public class AimLabPlayer : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         myRigidbody = GetComponent<Rigidbody>();
         playerCamera = GetComponentInChildren<Camera>();
     }
@@ -21,9 +24,6 @@ public class AimLabPlayer : MonoBehaviour
         PlayerMove();
         PlayerRotate();
         PlayerCameraRotate();
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void PlayerMove()
@@ -50,6 +50,7 @@ public class AimLabPlayer : MonoBehaviour
     private void PlayerCameraRotate()
     {
         float mouseY = Input.GetAxis("Mouse Y");
+        mouseY = Mathf.Clamp(mouseY, -90, 90);
         Vector3 rot = new Vector3(-mouseY * sensitivity, 0, 0);
 
         playerCamera.transform.localEulerAngles += rot;
