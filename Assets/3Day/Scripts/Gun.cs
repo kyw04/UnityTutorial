@@ -14,12 +14,14 @@ public class Gun : MonoBehaviour
     // set 변수에 값을 할당할 수 있음
     public GunState gunState { get; private set; }
 
+    public Camera playerCamera;
     public Transform gunFirePosition; // 총구의 위치를 관리하는 기능
     private LineRenderer bulletLine; // 총알의 선을 그리는 기능
     private AudioSource audioSource; // 소리를 관리하는 기능
     public AudioClip gunFireSound; // 총 소리 클립
+    public AudioClip gunReloadSound; // 총 재장전 소리 클립
+    public AudioClip gunEmptyAmmoShotSound; // 총알이 없는 총 발사 소리 클립
     private Vector3 hitPoint; // 총알이 맞은 포인트
-
     // 총 연사 관련 정보
     private float lastFireTime; // 총을 마지막으로 발사한 시점
     public float fireDelayTime; // 총의 지연시간 (연사력)
@@ -42,9 +44,13 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Fire1")) // 마우스 좌 클릭
+        if (Input.GetButtonDown("Fire1") && gunState == GunState.Empty)
         {
-            if (gunState == GunState.Ready && Time.time >= lastFireTime + fireDelayTime) // 총을 쏠 수 있고 현제 시간이 마지막으로 총을 쏜 시점 + 총 딜레이보다 클 때 true
+            audioSource.PlayOneShot(gunEmptyAmmoShotSound);
+        }
+        else if (Input.GetButton("Fire1") && gunState == GunState.Ready) // 마우스 좌 클릭
+        {
+            if (Time.time >= lastFireTime + fireDelayTime) // 총을 쏠 수 있고 현제 시간이 마지막으로 총을 쏜 시점 + 총 딜레이보다 클 때 true
             {
                 RaycastHit hit; // 맞은 오브젝트를 저장할 변수
 
@@ -95,6 +101,7 @@ public class Gun : MonoBehaviour
     public IEnumerator ReloadingSystem()
     {
         gunState = GunState.Reloading;
+        audioSource.PlayOneShot(gunReloadSound);
 
         yield return new WaitForSeconds(reloadTime);
 

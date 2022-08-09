@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/2Day/Scenes/Socoban.unity
-    guid: 07427f68162aae74aafafd1df4214f64
+    path: Assets/4Day/Scenes/UI.unity
+    guid: ffb3417b663b75e429f96d26688bd8c9
+  - enabled: 1
+    path: Assets/3Day/Scenes/AimLab.unity
+    guid: 25bd5707285e31a48be4e806ef5448da
   m_configObjects: {}
